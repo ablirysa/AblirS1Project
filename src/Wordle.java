@@ -35,14 +35,14 @@ public class Wordle {
     /** Gets the answer through chance (selection depends on level)
      @return String - the answer
      */
-    public String wordRandomizer() {
+    public void wordRandomizer() {
         int num = (int) (Math.random() * 3) + 1;
 
         if (level.equals("EASY")) { /* 4-letter words */
             if (num == 1) {
                 answer = "fast";
             } else if (num == 2) {
-                answer = "stat";
+                answer = "acid";
             } else {
                 answer = "bunt";
             }
@@ -63,8 +63,6 @@ public class Wordle {
                 answer = "acting";
             }
         }
-
-        return answer;
     }
 
     /** Single parameter method that decides if the player's guess is correct
@@ -111,6 +109,16 @@ public class Wordle {
 
         for (int idx = 0; idx < guess.length(); idx++) {
             String letter = guess.substring(idx, idx + 1);
+
+            if (tempA.indexOf(letter) == -1) {
+                gray += idx + ", ";
+            } else if (tempA.indexOf(letter) == idx) {
+                green += idx + ", ";
+            } else {
+                yellow += idx + ", ";
+            }
+
+            /*
             int guessCount = counter(guess, letter);
             int answerCount = counter(tempA, letter);
 
@@ -130,27 +138,31 @@ public class Wordle {
                     (IF answerCount < guessCount) EARLIEST = YELLOW & LATEST = GRAY [HOW???]
                     ALSO NEED TO
                     REMOVE PARTS OF tempA WHEN MATCHED? [WILL THAT IMPACT ANYTHING?] MAKE tempA GLOBAL???
-                     */
-                }
-            }
 
-            /*
-            if (tempA.indexOf(letter) == -1) {
-                gray += idx + ", ";
-            } else {
-                if (count == 1) {
-                    if (tempA.indexOf(letter) == idx) {
-                        green += idx + ", ";
-                    } else {
-                        yellow += idx + ", ";
+                    String whereA = "";
+                    String whereG = "";
+                    for (int idx2 = 0; idx2 < tempA.length(); idx2++) { // where the letter occurs in tempA
+                        if (tempA.substring(idx2, idx2 + 1).equals(letter)) {
+                            whereA += idx2 + "";
+                        }
                     }
-                } else {
-                    if (tempA.indexOf(letter) == idx) {
-                        green += idx + ", ";
+                    for (int idx3 = 0; idx3 < guess.length(); idx3++) {
+                        if (guess.substring(idx3, idx3 + 1).equals(letter)) {
+                            whereG += idx3 + "";
+                        }
+                    }
+                    if (whereA.length() > whereG.length() || whereA.length() == whereG.length()) {
+                        for (int comp = 0; comp < whereA.length(); )
                     }
                 }
             }
-             */
+            */
         }
+
+        String print = "Index of Gray Letters: " + gray;
+        print += "\nIndex of Yellow Letters: " + yellow;
+        print += "\nIndex of Green Letters: " + green;
+
+        System.out.println(print);
     }
 }
